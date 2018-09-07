@@ -1,0 +1,1 @@
+include ':app', ':plugin', ':saop_annotation', ':saop_runtime'

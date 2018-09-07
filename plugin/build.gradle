@@ -1,0 +1,31 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+//apply plugin: 'com.github.dcendents.android-maven'
+
+targetCompatibility = JavaVersion.VERSION_1_7
+sourceCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    implementation gradleApi()//gradle sdk
+    implementation localGroovy()//groovy sdk
+    implementation 'com.android.tools.build:gradle:3.0.1'
+    implementation 'org.aspectj:aspectjtools:1.8.9'
+    implementation 'org.aspectj:aspectjrt:1.8.9'
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+group = 'com.cyh.saop'
+version = '1.0.0'
+
+uploadArchives {
+    //使用当前目录下面的maven仓库，仓库在当前目录的repo文件目录中
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}
