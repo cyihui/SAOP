@@ -1,7 +1,9 @@
 apply plugin: 'groovy'
-apply plugin: 'maven'
-//apply plugin: 'com.github.dcendents.android-maven'
-
+//apply plugin: 'maven'
+apply plugin: 'com.github.dcendents.android-maven'
+// 指定group，com.github.<用户名>，这里我默认填写的是我的github账号，请换成你自己的。
+group='com.github.cyihui'
+//apply from: '/Users/chenyihui/AsProjects/SAOP-master/jitpackupload.gradle'
 targetCompatibility = JavaVersion.VERSION_1_7
 sourceCompatibility = JavaVersion.VERSION_1_7
 
@@ -18,8 +20,8 @@ repositories {
     mavenCentral()
 }
 
-group = 'com.cyh.saop'
-version = '1.0.0'
+//group = 'com.cyh.saop'
+//version = '1.0.0'
 
 uploadArchives {
     //使用当前目录下面的maven仓库，仓库在当前目录的repo文件目录中
@@ -28,4 +30,87 @@ uploadArchives {
             repository(url: uri('../repo'))
         }
     }
+}
+
+//android.libraryVariants.all { variant ->
+//    JavaCompile javaCompile = variant.javaCompile
+//    javaCompile.doLast {
+//        String[] args = [
+//                "-showWeaveInfo",
+//                "-1.5",
+//                "-inpath", javaCompile.destinationDir.toString(),
+//                "-aspectpath", javaCompile.classpath.asPath,
+//                "-d", javaCompile.destinationDir.toString(),
+//                "-classpath", javaCompile.classpath.asPath,
+//                "-bootclasspath", android.bootClasspath.join(File.pathSeparator)
+//        ]
+//
+//        MessageHandler handler = new MessageHandler(true)
+//        new Main().run(args, handler)
+//
+//        def log = project.logger
+//        for (IMessage message : handler.getMessages(null, true)) {
+//            switch (message.getKind()) {
+//                case IMessage.ABORT:
+//                case IMessage.ERROR:
+//                case IMessage.FAIL:
+//                    log.error message.message, message.thrown
+//                    break
+//                case IMessage.WARNING:
+//                case IMessage.INFO:
+//                    log.info message.message, message.thrown
+//                    break
+//                case IMessage.DEBUG:
+//                    log.debug message.message, message.thrown
+//                    break
+//            }
+//        }
+//    }
+//}
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        failOnError  false
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+    }
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
 }

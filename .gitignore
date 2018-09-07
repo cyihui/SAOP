@@ -1,4 +1,6 @@
 *.iml
+*.idea/
+*build/
 .gradle
 /local.properties
 /.idea/caches/build_file_checksum.ser
@@ -9,3 +11,4 @@
 /build
 /captures
 .externalNativeBuild
+

@@ -53,7 +53,7 @@ class SAOPPlugin implements Plugin<Project> {
         }
 
         log.error "========================"
-        log.error "XAOP::Aspectj切片开始编织Class!"
+        log.error "SAOP::Aspectj切片开始编织Class!"
         log.error "========================"
 
         variants.all { variant ->
