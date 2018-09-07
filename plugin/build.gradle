@@ -3,6 +3,7 @@ apply plugin: 'groovy'
 apply plugin: 'com.github.dcendents.android-maven'
 // 指定group，com.github.<用户名>，这里我默认填写的是我的github账号，请换成你自己的。
 group='com.github.cyihui'
+version = '1.0.2'
 //apply from: '/Users/chenyihui/AsProjects/SAOP-master/jitpackupload.gradle'
 targetCompatibility = JavaVersion.VERSION_1_7
 sourceCompatibility = JavaVersion.VERSION_1_7

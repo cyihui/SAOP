@@ -44,9 +44,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation (project(':saop_runtime')){
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+//    implementation ('com.github.cyihui.SAOP-master:plugin:1.0.1'){
+//        exclude group: 'com.android.support', module: 'appcompat-v7'
+//    }
 }
