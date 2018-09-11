@@ -5,18 +5,18 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.cyh.saop'
 
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url uri('./repo')
-        }
-    }
-    dependencies {
-        // group:moduleName:version
-//        classpath 'com.zero:AspectPlugin:1.0.0'
-    }
-}
+//buildscript {
+//    repositories {
+//        jcenter()
+//        maven {
+//            url uri('./repo')
+//        }
+//    }
+//    dependencies {
+//        // group:moduleName:version
+////        classpath 'com.zero:AspectPlugin:1.0.0'
+//    }
+//}
 
 android {
     compileSdkVersion 27
@@ -27,12 +27,18 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     buildTypes {
         release {
@@ -49,7 +55,7 @@ dependencies {
     implementation (project(':saop_runtime')){
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-//    implementation ('com.github.cyihui.SAOP-master:plugin:1.0.1'){
+//    implementation ('com.cyh:saop_runtime:1.0.2@aar'){
 //        exclude group: 'com.android.support', module: 'appcompat-v7'
 //    }
 }
